@@ -1,0 +1,10 @@
+services:
+  arxiv-recent:
+    build: .
+    env_file: .env
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    # Default CMD is "scheduler"; override for one-off runs:
+    #   docker compose run --rm arxiv-recent run --date 2024-01-15
+    #   docker compose run --rm arxiv-recent doctor
