@@ -30,7 +30,7 @@ class Settings(BaseSettings):
 
     # LLM
     vllm_url: str = Field(default="")
-    vllm_model_name: str = Field(default="/mnt/ssd/model/Qwen3-VL-30B-A3B-Instruct-FP8")
+    vllm_model_name: str = Field(default="")
     vllm_api_key: str = Field(default="")
     llm_max_concurrency: int = Field(default=4, ge=1, le=32)
     llm_rate_limit_rpm: int = Field(default=30, ge=1, le=600)

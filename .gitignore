@@ -211,3 +211,6 @@ data/*.db
 data/*.md
 data/*.txt
 !data/.gitkeep
+
+
+demo.txt
