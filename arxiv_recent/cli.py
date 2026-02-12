@@ -249,6 +249,25 @@ def cmd_doctor() -> None:
     else:
         print("  [SKIP] Email not configured")
 
+    # Check QQ
+    if cfg.qq_configured:
+        try:
+            with httpx.Client(timeout=10.0) as hclient:
+                resp = hclient.get(f"{cfg.qq_bot_api.rstrip('/')}/get_login_info")
+                resp.raise_for_status()
+                data = resp.json()
+                if data.get("retcode") == 0:
+                    nick = data.get("data", {}).get("nickname", "?")
+                    print(f"  [OK] QQ bot reachable (nickname: {nick})")
+                else:
+                    print(f"  [FAIL] QQ bot retcode={data.get('retcode')}")
+                    ok = False
+        except Exception as e:
+            print(f"  [FAIL] QQ bot: {e}")
+            ok = False
+    else:
+        print("  [SKIP] QQ not configured")
+
     # # Check Telegram（暂时禁用）
     # if cfg.telegram_configured:
     #     try:

@@ -6,6 +6,7 @@ import logging
 
 from arxiv_recent.config import Settings, get_settings
 from arxiv_recent.push.email_push import send_email
+from arxiv_recent.push.qq import send_qq
 
 # from arxiv_recent.push.telegram import send_telegram  # Telegram 暂时禁用
 
@@ -43,6 +44,15 @@ def push_digest(
                 )
                 results["email"] = True
                 logger.info("Email sent successfully")
+
+            elif channel == "qq":
+                if not cfg.qq_configured:
+                    logger.warning("QQ channel requested but not configured")
+                    results["qq"] = False
+                    continue
+                send_qq(plaintext, settings=cfg)
+                results["qq"] = True
+                logger.info("QQ group message sent successfully")
 
             # elif channel == "telegram":
             #     if not cfg.telegram_configured:

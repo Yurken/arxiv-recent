@@ -50,6 +50,11 @@ class Settings(BaseSettings):
     telegram_bot_token: str = Field(default="")
     telegram_chat_id: str = Field(default="")
 
+    # QQ (OneBot v11)
+    qq_bot_api: str = Field(default="")
+    qq_group_id: str = Field(default="")
+    qq_bot_token: str = Field(default="")
+
     # Push
     push_channels_str: str = Field(default="", alias="PUSH_CHANNELS")
 
@@ -87,6 +92,10 @@ class Settings(BaseSettings):
     @property
     def telegram_configured(self) -> bool:
         return bool(self.telegram_bot_token and self.telegram_chat_id)
+
+    @property
+    def qq_configured(self) -> bool:
+        return bool(self.qq_bot_api and self.qq_group_id)
 
 
 _settings: Settings | None = None
